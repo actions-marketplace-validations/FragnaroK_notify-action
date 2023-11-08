@@ -5,32 +5,31 @@ inputs:
     description: 'Notification type (Success, Error, Pending)'
     required: true
     default: 'error'
-    type: string
   repoName:
     description: 'Repository name'
     required: true
     default: ''
-    type: string
   branch:
     description: 'Branch name'
     required: false
     default: ''
-    type: string
   details:
     description: 'Notification message'
     required: false
     default: ''
-    type: string
   repoLink:
     description: 'Repository link'
     required: false
     default: ''
-    type: string
+  IFTTT_EVENT: 
+    description: 'IFTTT event name'
+    required: false
+    default: 'ga_notify'
+  HEADER: 
+    description: 'IFTTT header'
+    required: false
+    default: 'Content-Type: application/json'
 
-env: 
-  IFTTT_EVENT: 'ga_notify'
-  IFTTT_API: 'https://maker.ifttt.com/trigger/$IFTTT_EVENT/json/with/key/ifttt_key'
-  HEADER: '{"Content-Type": "application/json"}'
 
 runs:
   using: "composite"
@@ -42,6 +41,6 @@ runs:
         echo "branch: ${{ inputs.branch }}"
         echo "details: ${{ inputs.details }}"
         echo "repoLink: ${{ inputs.repoLink }}"
-        echo "IFTTT_API: $IFTTT_API"
+        echo "IFTTT_API: https://maker.ifttt.com/trigger/$IFTTT_EVENT/json/with/key/${{ secrets.IFTTT_KEY }}"
         echo "HEADER: $HEADER"
       shell: bash
