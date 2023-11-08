@@ -25,6 +25,10 @@ inputs:
     description: 'IFTTT event name'
     required: false
     default: 'ga_notify'
+  IFTTT_KEY: 
+    description: 'IFTTT key'
+    required: true
+    default: ''
   HEADER: 
     description: 'IFTTT header'
     required: false
@@ -41,6 +45,6 @@ runs:
         echo "branch: ${{ inputs.branch }}"
         echo "details: ${{ inputs.details }}"
         echo "repoLink: ${{ inputs.repoLink }}"
-        echo "IFTTT_API: https://maker.ifttt.com/trigger/$IFTTT_EVENT/json/with/key/${{ secrets.IFTTT_KEY }}"
+        echo "IFTTT_API: https://maker.ifttt.com/trigger/${{ inputs.IFTTT_EVENT }}/json/with/key/${{ inputs.IFTTT_KEY }}"
         echo "HEADER: $HEADER"
       shell: bash
