@@ -29,7 +29,7 @@ inputs:
 
 env: 
   IFTTT_EVENT: 'ga_notify'
-  IFTTT_API: 'https://maker.ifttt.com/trigger/$IFTTT_EVENT/json/with/key/${{ secrets.IFTTT_KEY }}'
+  IFTTT_API: 'https://maker.ifttt.com/trigger/$IFTTT_EVENT/json/with/key/ifttt_key'
   HEADER: '{"Content-Type": "application/json"}'
 
 runs:
