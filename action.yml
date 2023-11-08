@@ -38,13 +38,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Print params
-      run: |
-        echo "type: ${{ inputs.type }}"
-        echo "repoName: ${{ inputs.repoName }}"
-        echo "branch: ${{ inputs.branch }}"
-        echo "details: ${{ inputs.details }}"
-        echo "repoLink: ${{ inputs.repoLink }}"
-        echo "IFTTT_API: https://maker.ifttt.com/trigger/${{ inputs.IFTTT_EVENT }}/json/with/key/${{ inputs.IFTTT_KEY }}"
-        echo "HEADER: $HEADER"
+    - name: Announce execution
+      run: echo "Sending notification to IFTTT - ${{ inputs.repoName }} - ${{ inputs.branch}}"
       shell: bash
+    - name: Notify execution
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: "https://maker.ifttt.com/trigger/${{ inputs.IFTTT_EVENT }}/json/with/key/${{ inputs.IFTTT_KEY }}"
+        method: 'POST'
+        customHeaders: "${{ inputs.HEADER }}"
+        data: '{"repoName": "${{ inputs.repoName }} - ${{ inputs.branch }}","status": "${{ inputs.type }}","details": "${{ inputs.details }}","repoLink": "${{ inputs.repoLink }}"}'
+
