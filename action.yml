@@ -1,21 +1,47 @@
-name: 'Hello World'
-description: 'Greet someone'
+name: 'Notify (IFTTT Integration)'
+description: 'Send notification to IFTTT'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  type:
+    description: 'Notification type (Success, Error, Pending)'
     required: true
-    default: 'World'
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
+    default: 'error'
+    type: string
+  repoName:
+    description: 'Repository name'
+    required: true
+    default: ''
+    type: string
+  branch:
+    description: 'Branch name'
+    required: false
+    default: ''
+    type: string
+  details:
+    description: 'Notification message'
+    required: false
+    default: ''
+    type: string
+  repoLink:
+    description: 'Repository link'
+    required: false
+    default: ''
+    type: string
+
+env: 
+  IFTTT_EVENT: 'ga_notify'
+  IFTTT_API: 'https://maker.ifttt.com/trigger/$IFTTT_EVENT/json/with/key/${{ secrets.IFTTT_KEY }}'
+  HEADER: '{"Content-Type": "application/json"}'
+
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
-    - id: random-number-generator
-      run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
-      shell: bash
-    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+    - name: Print params
+      run: |
+        echo "type: ${{ inputs.type }}"
+        echo "repoName: ${{ inputs.repoName }}"
+        echo "branch: ${{ inputs.branch }}"
+        echo "details: ${{ inputs.details }}"
+        echo "repoLink: ${{ inputs.repoLink }}"
+        echo "IFTTT_API: $IFTTT_API"
+        echo "HEADER: $HEADER"
       shell: bash
