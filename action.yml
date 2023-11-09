@@ -6,7 +6,7 @@ branding:
   color: 'red'
 inputs:
   type:
-    description: 'Notification type (Success, Error, Pending)'
+    description: 'Notification type (Success, Error, Pending, Debug, Info, Warning)'
     required: true
     default: 'error'
   repoName:
@@ -51,5 +51,5 @@ runs:
         url: "https://maker.ifttt.com/trigger/${{ inputs.IFTTT_EVENT }}/json/with/key/${{ inputs.IFTTT_KEY }}"
         method: 'POST'
         customHeaders: "${{ inputs.HEADER }}"
-        data: '{"repoName": "${{ inputs.repoName }} - ${{ inputs.branch }}","status": "${{ inputs.type }}","details": "${{ inputs.details }}","repoLink": "${{ inputs.repoLink }}"}'
+        data: '{"repoName": "${{ inputs.repoName }}", "repoBranch": "${{ inputs.branch }}", "status": "${{ inputs.type }}","details": "${{ inputs.details }}","repoLink": "${{ inputs.repoLink }}"}'
 
