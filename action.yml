@@ -1,5 +1,9 @@
 name: 'Notify (IFTTT Integration)'
 description: 'Send notification to IFTTT'
+author: 'FragnaroK'
+branding:
+  icon: 'message-circle'
+  color: 'red'
 inputs:
   type:
     description: 'Notification type (Success, Error, Pending)'
@@ -32,7 +36,7 @@ inputs:
   HEADER: 
     description: 'IFTTT header'
     required: false
-    default: 'Content-Type: application/json'
+    default: '{"Content-Type": "application/json"}'
 
 
 runs:
